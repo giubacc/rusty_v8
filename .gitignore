@@ -24,6 +24,12 @@ Thumbs.db
 #other
 tmp
 output*
+*/**/venv
+.cipd
+.gclient
+.gclient_entries
+.gclient_previous_sync_commits
+v8/v8
 
 #rust
 Cargo.lock
