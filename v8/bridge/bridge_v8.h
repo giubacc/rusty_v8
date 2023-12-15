@@ -7,12 +7,11 @@
 namespace bridge_v8
 {
 
-  struct env
+  struct isolate
   {
     struct cfg
     {
       std::string in_path = "";
-      std::string in_name = "";
     };
 
     // global V8 platform

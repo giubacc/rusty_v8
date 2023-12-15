@@ -111,9 +111,9 @@ namespace util
 
 namespace bridge_v8
 {
-  std::unique_ptr<v8::Platform> env::platform;
+  std::unique_ptr<v8::Platform> isolate::platform;
 
-  bool env::init_V8(int argc, const char *argv[])
+  bool isolate::init_V8(int argc, const char *argv[])
   {
     // Initialize V8.
     v8::V8::InitializeICUDefaultLocation(argv[0]);
@@ -123,13 +123,13 @@ namespace bridge_v8
     return v8::V8::Initialize();
   }
 
-  void env::stop_V8()
+  void isolate::stop_V8()
   {
     // Destroy V8.
     v8::V8::Dispose();
   }
 
-  int env::load_scripts()
+  int isolate::load_scripts()
   {
     int res = 0;
     DIR *dir;
@@ -206,7 +206,7 @@ namespace bridge_v8
   }
 
   // Reads a script into a v8 string.
-  v8::MaybeLocal<v8::String> env::read_script_file(const std::string &name)
+  v8::MaybeLocal<v8::String> isolate::read_script_file(const std::string &name)
   {
     std::vector<char> content;
     int error = 0;
@@ -223,9 +223,9 @@ namespace bridge_v8
     return result;
   }
 
-  bool env::compile_script(const v8::Local<v8::String> &script_src,
-                           v8::Local<v8::Script> &script,
-                           std::string &error)
+  bool isolate::compile_script(const v8::Local<v8::String> &script_src,
+                               v8::Local<v8::Script> &script,
+                               std::string &error)
   {
     v8::Local<v8::Context> context = scenario_context_.Get(isolate_);
     v8::Context::Scope context_scope(context);
@@ -240,9 +240,9 @@ namespace bridge_v8
     return true;
   }
 
-  bool env::run_script(const v8::Local<v8::Script> &script,
-                       v8::Local<v8::Value> &result,
-                       std::string &error)
+  bool isolate::run_script(const v8::Local<v8::Script> &script,
+                           v8::Local<v8::Value> &result,
+                           std::string &error)
   {
     v8::Local<v8::Context> context = scenario_context_.Get(isolate_);
     v8::Context::Scope context_scope(context);
