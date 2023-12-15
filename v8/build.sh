@@ -1,7 +1,7 @@
 #!/bin/bash
 
 python_bin=${PYTHON_BIN:-"python3.11"}
-basedir=$(realpath ${BASE_DIR:-"."})
+basedir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 ninja_jobs=${NINJA_JOBS:-"6"}
 
 patch_v8_code() {
@@ -44,6 +44,16 @@ clean_v8() {
   rm -rf $basedir/.gclient_previous_sync_commits
 }
 
+build_bridge_v8() {
+  echo "Building bridge_v8 library ..."
+  mkdir -p $basedir/build && cd $basedir/build && cmake ../bridge && make bridge_v8
+}
+
+clean_bridge_v8() {
+  echo "Cleaning bridge_v8 library build ..."
+  rm -rf $basedir/build
+}
+
 error() {
   echo "error: $*" >/dev/stderr
 }
@@ -55,11 +65,17 @@ echo "Invoked with basedir: ${basedir}"
 echo
 
 case ${cmd} in
-  v8)
+  build_v8)
     build_v8 || exit 1
     ;;
-  clean)
+  clean_v8)
     clean_v8 || exit 1
+    ;;
+  build_bridge_v8)
+    build_bridge_v8 || exit 1
+    ;;
+  clean_bridge_v8)
+    clean_bridge_v8 || exit 1
     ;;
   *)
     error "unknown command '${cmd}'"

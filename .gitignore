@@ -2,6 +2,7 @@
 
 # Compiled output
 */**/target
+*/**/build
 
 # IDEs and editors
 .idea/
@@ -22,9 +23,10 @@
 Thumbs.db
 
 #other
+venv
+*/**/venv
 tmp
 output*
-*/**/venv
 .cipd
 .gclient
 .gclient_entries

@@ -1,3 +1,6 @@
 [submodule "v8/depot_tools"]
 	path = v8/depot_tools
 	url = https://chromium.googlesource.com/chromium/tools/depot_tools.git
+[submodule "v8/spdlog"]
+	path = v8/spdlog
+	url = https://github.com/gabime/spdlog.git
